@@ -3,12 +3,10 @@ import Headroom from "react-headroom";
 import "./Header.scss";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import StyleContext from "../../contexts/StyleContext";
-import { blogSection } from "../../portfolio";
 import logoImage from "../../assets/images/3cebaa3d-b12b-4716-9b8b-5ed782aba4b6.png";
 
 function Header() {
   const { isDark } = useContext(StyleContext);
-  const viewBlog = blogSection.display;
   const dropdownRef = useRef(null);
 
   // Dropdown open/close logic to match school.html/about.html
@@ -81,7 +79,6 @@ function Header() {
               </ul>
             </li>
             <li><a href="/blog.html">Blog</a></li>
-            <li><a href="/recipes.html">Favorite Recipes</a></li>
             <li><a href="/contact.html">Contact Me</a></li>
             <li>
               <button

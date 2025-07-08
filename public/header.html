@@ -1,0 +1,112 @@
+<div class="header">
+  <a href="/" class="logo">
+    <img src="3cebaa3d-b12b-4716-9b8b-5ed782aba4b6.png" alt="Crohn's Journal logo" class="logo-img" style="height: 45px; width: auto; display: block; cursor: pointer; transition: transform 0.2s ease-in-out;" />
+  </a>
+  <nav>
+    <ul class="menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">About Me</a></li>
+      <li class="advice-dropdown">
+        <a href="#" class="advice-link" onclick="toggleAdviceDropdown(event)">
+          Advice <span class="advice-caret">▼</span>
+        </a>
+        <ul class="dropdown-menu" id="advice-dropdown-menu">
+          <li><a href="/food.html" class="dropdown-item">Food</a></li>
+          <li><a href="/school.html" class="dropdown-item">School</a></li>
+        </ul>
+      </li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/contact.html">Contact Me</a></li>
+      <li>
+        <button class="toggle-btn" aria-label="Toggle theme">
+          <label class="toggle-switch">
+            <input type="checkbox" id="theme-toggle" />
+            <span class="slider"></span>
+          </label>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<style>
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+  }
+
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #d1d1d1;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: background-color 0.4s;
+  }
+
+  .slider:before {
+    content: "☀️";
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: transform 0.4s, content 0.4s;
+  }
+
+  input:checked + .slider {
+    background-color: #87b3ff;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(24px);
+    content: "🌜";
+  }
+</style>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("theme-toggle");
+    const darkModeKey = "darkMode";
+
+    if (localStorage.getItem(darkModeKey) === "true") {
+      document.body.classList.add("dark-mode");
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener("change", () => {
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem(darkModeKey, toggle.checked);
+    });
+
+    function toggleAdviceDropdown(e) {
+      e.preventDefault();
+      var menu = document.getElementById("advice-dropdown-menu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    document.addEventListener("click", function (e) {
+      var menu = document.getElementById("advice-dropdown-menu");
+      if (!e.target.closest(".advice-dropdown")) {
+        menu && (menu.style.display = "none");
+      }
+    });
+  });
+</script>
