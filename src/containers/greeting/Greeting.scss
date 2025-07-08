@@ -21,10 +21,6 @@
   color: $subTitle !important;
 }
 
-.greeting-main {
-  display: flex;
-}
-
 .greeting-main > * {
   flex: 1;
   margin-bottom: 30px;
@@ -124,4 +120,14 @@
   .main {
     width: auto;
   }
+}
+
+/* === DARK MODE OVERRIDES === */
+.dark-mode .greeting-text {
+  color: #ffffff !important;
+}
+
+.dark-mode .greeting-text-p,
+.dark-mode .subTitle {
+  color: #e0e0e0 !important;
 }

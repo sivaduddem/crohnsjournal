@@ -22,7 +22,7 @@ const Main = () => {
         <div
           className="banner"
           style={{
-            background: `url("/snoopy-banner.jpg") no-repeat center center/cover`,
+            background: `url("/snoopy-bannerV2.jpg") no-repeat center center/cover`,
             height: "300px",
             width: "100%",
             marginBottom: "40px"
