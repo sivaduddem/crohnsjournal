@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../components/header/Header";
 import Greeting from "./greeting/Greeting";
 import ScrollToTopButton from "./topbutton/Top";
-import { StyleProvider } from "../contexts/StyleContext";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import {StyleProvider} from "../contexts/StyleContext";
+import {useLocalStorage} from "../hooks/useLocalStorage";
 import "./Main.scss";
 
 const Main = () => {
@@ -16,7 +16,7 @@ const Main = () => {
 
   return (
     <div className={isDark ? "dark-mode" : null}>
-      <StyleProvider value={{ isDark, changeTheme }}>
+      <StyleProvider value={{isDark, changeTheme}}>
         <Header />
 
         <div
