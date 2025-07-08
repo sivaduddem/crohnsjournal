@@ -4,7 +4,6 @@ import Greeting from "./greeting/Greeting";
 import ScrollToTopButton from "./topbutton/Top";
 import { StyleProvider } from "../contexts/StyleContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import snoopyBanner from "../assets/images/snoopy-banner.jpg";
 import "./Main.scss";
 
 const Main = () => {
@@ -23,7 +22,7 @@ const Main = () => {
         <div
           className="banner"
           style={{
-            background: `url(${snoopyBanner}) no-repeat center center/cover`,
+            background: `url("/snoopy-banner.jpg") no-repeat center center/cover`,
             height: "300px",
             width: "100%",
             marginBottom: "40px"
@@ -36,4 +35,5 @@ const Main = () => {
     </div>
   );
 };
+
 export default Main;
