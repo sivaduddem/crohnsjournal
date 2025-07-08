@@ -1,0 +1,366 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crohn's-Friendly Recipes Blog</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        body {
+        margin: 0;
+        font-family: 'Open Sans', sans-serif;
+        background: linear-gradient(to bottom, #0d0d1a, #1a1a2e);
+        color: #ffffff;
+        transition: background-color 0.3s, color 0.3s;
+        }
+        .header {
+        background-color: #0b0b1a;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+        flex-wrap: wrap;
+        }
+        .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        }
+        .logo-img {
+        height: 45px;
+        width: auto;
+        display: block;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        }
+        .logo-img:hover {
+        transform: scale(1.05);
+        }
+        .menu {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        height: 64px;
+        }
+        .menu > li {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        position: relative;
+        }
+        .menu li a,
+        .advice-link {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 0 12px;
+        box-sizing: border-box;
+        line-height: 64px;
+        transition: color 0.3s;
+        position: relative;
+        }
+        .menu li a:hover,
+        .advice-link:hover {
+        color: #a855f7;
+        }
+        .menu li a:hover::after,
+        .advice-link:hover::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #a855f7;
+        }
+        .toggle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        }
+        .advice-dropdown {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        }
+        .advice-link {
+        padding: 0 12px;
+        background: none;
+        border: none;
+        font: inherit;
+        height: 100%;
+        line-height: 64px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s;
+        cursor: pointer;
+        }
+        .advice-caret {
+        margin-left: 4px;
+        font-size: 0.8em;
+        }
+        .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0b0b1a;
+        color: #fff;
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 4px;
+        padding: 10px 0;
+        z-index: 1000;
+        }
+        .dropdown-item {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        display: block;
+        transition: background-color 0.3s;
+        text-align: left;
+        font-size: 1rem;
+        font-weight: 500;
+        background: none;
+        border: none;
+        }
+        .dropdown-item:hover {
+        background-color: #a855f7;
+        color: #fff;
+        }
+        .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 28px;
+        }
+        .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        }
+        .slider {
+        position: absolute;
+        cursor: pointer;
+        background-color: #d1d1d1;
+        border-radius: 34px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: background-color 0.4s;
+        }
+        .slider:before {
+        content: "☀️";
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: transform 0.4s, content 0.4s;
+        }
+        input:checked + .slider {
+        background-color: #87b3ff;
+        }
+        input:checked + .slider:before {
+        transform: translateX(24px);
+        content: "🌜";
+        }
+        .dark-mode {
+        background: linear-gradient(to bottom, #f4f4f4, #ffffff);
+        color: #111111;
+        }
+        .dark-mode .header {
+        background-color: #0b0b1a;
+        }
+        .dark-mode .menu li a,
+        .dark-mode .advice-link {
+        color: #fff;
+        }
+        .dark-mode .menu li a:hover,
+        .dark-mode .advice-link:hover {
+        color: #a855f7;
+        }
+        .dark-mode .blog-card {
+        background-color: #ffffff;
+        color: #111111;
+        }
+        .dark-mode footer {
+        background-color: #f4f4f4;
+        color: #111111;
+        }
+        .blog-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2em;
+        padding: 2em;
+        }
+        .blog-card {
+        background-color: #fff;
+        color: #111;
+        padding: 1.5em;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        }
+        .blog-card:hover {
+        transform: translateY(-5px);
+        }
+        .blog-card h2 {
+        margin-top: 0;
+        font-size: 1.25rem;
+        }
+        .blog-card p {
+        font-size: 0.95rem;
+        }
+        .blog-card ul {
+        padding-left: 1.2em;
+        margin: 0.5em 0 0 0;
+        }
+        footer {
+        background: #0b0b19;
+        color: white;
+        text-align: center;
+        padding: 1em;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="header">
+        <a href="/" class="logo">
+        <img src="3cebaa3d-b12b-4716-9b8b-5ed782aba4b6.png" alt="Crohn's Journal logo" class="logo-img" />
+        </a>
+        <nav>
+        <ul class="menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about.html">About Me</a></li>
+            <li class="advice-dropdown">
+            <a href="#" class="advice-link" onclick="toggleAdviceDropdown(event)">
+                Advice <span class="advice-caret">▼</span>
+            </a>
+            <ul class="dropdown-menu" id="advice-dropdown-menu">
+                <li><a href="/food.html" class="dropdown-item">Food</a></li>
+                <li><a href="/school.html" class="dropdown-item">School</a></li>
+            </ul>
+            </li>
+            <li><a href="/blog.html" class="active">Blog</a></li>
+            <li><a href="/recipes.html">Favorite Recipes</a></li>
+            <li><a href="/contact.html">Contact Me</a></li>
+            <li>
+            <button class="toggle-btn" aria-label="Toggle theme">
+                <label class="toggle-switch">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="slider"></span>
+                </label>
+            </button>
+            </li>
+        </ul>
+        </nav>
+    </div>
+
+    <main class="blog-container">
+        <section class="blog-card">
+        <h2>Cooking with Crohn's: Delicious and Digestive-Friendly Recipes</h2>
+        <p>Living with this condition can be challenging, but I've found joy in creating Crohn's-friendly recipes that are easy on the digestive system and full of flavor.</p>
+        <ul>
+            <li>Soothing Chicken and Rice Soup</li>
+            <li>Creamy Mashed Potatoes</li>
+            <li>Baked Salmon with Lemon and Dill</li>
+            <li>Roasted Root Vegetables</li>
+            <li>Overnight Chia Pudding</li>
+            <li>Smoothie Bowl Delight</li>
+        </ul>
+        </section>
+
+        <section class="blog-card">
+        <h2>Leftover Roast Chicken Soup with Roasted Vegetables</h2>
+        <p>A cozy twist on comfort food that’s easy on the gut and packed with flavor from low-FODMAP veggies and homemade broth.</p>
+        </section>
+
+        <section class="blog-card">
+        <h2>Whole30 Instant Pot Chicken Soup</h2>
+        <p>This nourishing soup is Whole30-compliant and perfect for Crohn’s flare days, with mild herbs and soothing broth.</p>
+        </section>
+
+        <section class="blog-card">
+        <h2>Almond Flour Zucchini Bread</h2>
+        <p>A soft, moist, and Crohn's-friendly bread that satisfies your baked good cravings without causing irritation.</p>
+        </section>
+
+        <section class="blog-card">
+        <h2>Pumpkin Pudding (Egg-Free, Dairy-Free)</h2>
+        <p>This creamy dessert is a seasonal favorite, crafted to be gentle on the digestive system while still full of flavor.</p>
+        </section>
+    </main>
+
+
+    <script>
+        const toggle = document.getElementById("theme-toggle");
+        const darkModeKey = 'darkMode';
+
+        // Fix: darkMode true should mean dark mode is OFF (moon = light), false = dark mode ON (moon = dark)
+        // So, invert the logic for toggling and initial state
+
+        // When toggle is checked (moon), set darkMode to false (light mode)
+        // When toggle is unchecked (sun), set darkMode to true (dark mode)
+
+        function setThemeFromStorage() {
+        const isDark = localStorage.getItem(darkModeKey) !== 'false'; // default to dark
+        if (isDark) {
+            document.body.classList.add("dark-mode");
+            toggle.checked = false; // sun (dark)
+        } else {
+            document.body.classList.remove("dark-mode");
+            toggle.checked = true; // moon (light)
+        }
+        }
+
+        setThemeFromStorage();
+
+        toggle.addEventListener("change", () => {
+        if (toggle.checked) {
+            // Moon: light mode (remove dark-mode)
+            document.body.classList.remove("dark-mode");
+            localStorage.setItem(darkModeKey, 'false');
+        } else {
+            // Sun: dark mode (add dark-mode)
+            document.body.classList.add("dark-mode");
+            localStorage.setItem(darkModeKey, 'true');
+        }
+        });
+
+        function toggleAdviceDropdown(e) {
+        e.preventDefault();
+        var menu = document.getElementById("advice-dropdown-menu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+
+        document.addEventListener("click", function(e) {
+        var menu = document.getElementById("advice-dropdown-menu");
+        if (!e.target.closest('.advice-dropdown')) {
+            menu && (menu.style.display = "none");
+        }
+        });
+    </script>
+    </body>
+    </html>

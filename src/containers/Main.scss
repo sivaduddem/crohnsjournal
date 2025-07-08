@@ -5,3 +5,10 @@
   color: white;
   transition: "0.1s";
 }
+
+.banner {
+  background-attachment: fixed;
+}
+.banner {
+  position: static; // Ensure the banner is not fixed
+}

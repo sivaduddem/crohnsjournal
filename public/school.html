@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School | Crohn's Journal</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Open Sans", sans-serif;
+        background: linear-gradient(to bottom, #0d0d1a, #1a1a2e);
+        color: #ffffff;
+        line-height: 1.6;
+        transition: background-color 0.3s, color 0.3s;
+        text-align: center;
+      }
+
+      .header {
+        background-color: #0b0b1a;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "Poppins", sans-serif;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .logo-img {
+        height: 45px;
+        width: auto;
+        display: block;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .logo-img:hover {
+        transform: scale(1.05);
+      }
+
+      .menu {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        height: 64px;
+      }
+
+      .menu > li {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        position: relative;
+      }
+
+      .menu li a,
+      .advice-link {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 0 12px;
+        box-sizing: border-box;
+        line-height: 64px;
+        transition: color 0.3s;
+        position: relative;
+      }
+
+      .menu li a:hover,
+      .advice-link:hover {
+        color: #a855f7;
+      }
+
+      .menu li a:hover::after,
+      .advice-link:hover::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #a855f7;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .advice-dropdown {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+
+      .advice-link {
+        padding: 0 12px;
+        background: none;
+        border: none;
+        font: inherit;
+        height: 100%;
+        line-height: 64px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s;
+      }
+
+      .advice-caret {
+        margin-left: 4px;
+        font-size: 0.8em;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0b0b1a;
+        color: #fff;
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        padding: 10px 0;
+        z-index: 1000;
+      }
+
+      .dropdown-item {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        display: block;
+        transition: background-color 0.3s;
+        text-align: left;
+        font-size: 1rem;
+        font-weight: 500;
+        background: none;
+        border: none;
+      }
+
+      .dropdown-item:hover {
+        background-color: #a855f7;
+        color: #fff;
+      }
+
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 28px;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        background-color: #d1d1d1;
+        border-radius: 34px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: background-color 0.4s;
+      }
+
+      .slider:before {
+        content: "☀️";
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: transform 0.4s, content 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #87b3ff;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(24px);
+        content: "🌜";
+      }
+
+      .section {
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .section-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .section h2 {
+        color: inherit;
+        text-align: center;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+      }
+
+      .section-about {
+        background-color: #f3e8ff;
+      }
+
+      .section-tips {
+        background-color: #fff4e5;
+      }
+
+      .footer-banner {
+        background: url("/relaxing-panda.jpg") center center / cover no-repeat;
+        height: 200px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-family: "Oswald", sans-serif;
+        font-size: 1.75rem;
+        color: #ffffff; /* ✅ brighter white */
+        text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6); /* ✅ soft contrast */
+        text-align: center;
+      }
+      F .dark-mode {
+        background-color: #0d0d1a;
+        color: #ffffff;
+      }
+
+      .dark-mode nav ul li a {
+        color: #ffffff;
+      }
+
+      .dark-mode .section-about {
+        background-color: #5a3d8a;
+      }
+
+      .dark-mode .section-tips {
+        background-color: #c28833;
+      }
+
+      .dark-mode .footer-banner {
+        filter: brightness(0.7);
+      }
+
+      ul {
+        padding-left: 0;
+        display: inline-block;
+        text-align: left;
+      }
+
+      ul li {
+        margin-bottom: 10px;
+      }
+
+      a {
+        color: #a855f7;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="logo">
+        <img
+          src="3cebaa3d-b12b-4716-9b8b-5ed782aba4b6.png"
+          alt="Crohn's Journal logo"
+          class="logo-img"
+        />
+      </a>
+      <nav>
+        <ul class="menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About Me</a></li>
+          <li class="advice-dropdown">
+            <a
+              href="#"
+              class="advice-link"
+              onclick="toggleAdviceDropdown(event)"
+            >
+              Advice <span class="advice-caret">▼</span>
+            </a>
+            <ul class="dropdown-menu" id="advice-dropdown-menu">
+              <li><a href="/food.html" class="dropdown-item">Food</a></li>
+              <li><a href="/school.html" class="dropdown-item">School</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/recipes.html">Favorite Recipes</a></li>
+          <li><a href="/contact.html">Contact Me</a></li>
+          <li>
+            <button class="toggle-btn" aria-label="Toggle theme">
+              <label class="toggle-switch">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="slider"></span>
+              </label>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="section section-about">
+      <div class="container">
+        <h2>ABOUT</h2>
+        <p>
+          I've always been hyper-fixated on my grades, obsessing with the 0.05
+          drops in my cumulative class grade.
+        </p>
+        <p>
+          I struggled during my sophomore and junior high school years due to
+          frequent flare-ups...
+        </p>
+        <p>
+          If you're dealing with Crohn's, some days – some school days – will be
+          worse than others.
+        </p>
+      </div>
+    </div>
+
+    <div class="section section-tips">
+      <div class="container">
+        <h2>TIPS</h2>
+        <h3>Resources:</h3>
+        <ul>
+          <li>
+            <a href="https://www.youtube.com/@TheOrganicChemistryTutor"
+              >The Organic Chemistry Tutor</a
+            >
+          </li>
+          <li><a href="https://khanacademy.org/">Khan Academy</a></li>
+          <li>
+            <a href="https://www.youtube.com/@heimlershistory"
+              >Heimler's History</a
+            >
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@CareyLaManna">Carey LaManna</a>
+          </li>
+          <li>
+            <a href="https://web.mit.edu/~yczeng/Public/WORKBOOK%201%20FULL.pdf"
+              >MIT Physics Workbook</a
+            >
+          </li>
+          <li><a href="https://www.crackap.com/">CrackAP</a></li>
+        </ul>
+
+        <h3>Study Tips:</h3>
+        <ul>
+          <li>PLAN, PLAN, PLAN – Use planners and chunk study time.</li>
+          <li>Listen to music – it helps me focus.</li>
+          <li>Try block study methods – time-box your subjects.</li>
+        </ul>
+        <p>
+          Please feel free to contact me for more information or clarification.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-banner">
+      <div class="footer-banner">DON'T STRESS. YOU GOT IT :)</div>
+    </div>
+
+    <script>
+      const toggle = document.getElementById("theme-toggle");
+      const darkModeKey = "darkMode";
+
+      if (localStorage.getItem(darkModeKey) === "true") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+      }
+
+      toggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem(darkModeKey, toggle.checked);
+      });
+
+      function toggleAdviceDropdown(e) {
+        e.preventDefault();
+        var menu = document.getElementById("advice-dropdown-menu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+      }
+
+      // Optional: close dropdown when clicking outside
+      document.addEventListener("click", function (e) {
+        var menu = document.getElementById("advice-dropdown-menu");
+        if (!e.target.closest(".advice-dropdown")) {
+          menu && (menu.style.display = "none");
+        }
+      });
+    </script>
+  </body>
+</html>
