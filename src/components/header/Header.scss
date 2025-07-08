@@ -1,11 +1,11 @@
 @import "../../_globalColor";
 
-/*React-headroom*/
+/* React-headroom */
 .headroom-wrapper {
   max-height: 100px;
 }
 
-/* header */
+/* Header */
 
 .dark-menu {
   background-color: $darkBackground !important;
@@ -68,7 +68,7 @@
   padding: 0 10px;
 }
 
-/* menu */
+/* Menu */
 
 .header .menu {
   clear: both;
@@ -76,7 +76,7 @@
   transition: max-height 0.2s ease-out;
 }
 
-/* menu icon */
+/* Menu icon */
 
 .header .menu-icon {
   cursor: pointer;
@@ -114,12 +114,6 @@
 .header .menu-icon .navicon-dark:before,
 .header .menu-icon .navicon-dark:after {
   background: $textColorDark !important;
-  content: "";
-  display: block;
-  height: 100%;
-  position: absolute;
-  transition: all 0.2s ease-out;
-  width: 100%;
 }
 
 .header .menu-icon .navicon:before {
@@ -130,7 +124,7 @@
   top: -5px;
 }
 
-/* menu btn */
+/* Menu btn */
 
 .header .menu-btn {
   display: none;
@@ -157,7 +151,7 @@
   top: 0;
 }
 
-/* 48em = 768px */
+/* Responsive */
 
 @media (min-width: 48em) {
   .header li {
@@ -175,8 +169,54 @@
     display: none;
   }
 }
+
 @media (max-width: 960px) and (min-width: 768px) {
   .header {
     font-size: 12px;
   }
+}
+
+/* Dropdown Menu for Advice */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 15px 20px;
+  text-align: left;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: $lightBackground1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.dropdown-content li a {
+  display: block;
+  padding: 12px 16px;
+  color: $textColor;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dropdown-content li a:hover {
+  background-color: $headerHoverBG;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
