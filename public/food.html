@@ -1,338 +1,435 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Food | Crohn's Journal</title>
-  <style>
-    :root {
-      --light-purple: #736bc7;
-      --light-white: #ffffff;
-      --dark-purple: #2f2b57;
-      --dark-white: #0d0d1a;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background-color: var(--light-white);
-      color: #111;
-      line-height: 1.6;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .dark-mode {
-      background-color: var(--dark-white);
-      color: #f2f2f2;
-    }
-
-    .header {
-      background-color: #0b0b1a;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Poppins', sans-serif;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
-
-    .logo-img {
-      height: 45px;
-      width: auto;
-      display: block;
-      cursor: pointer;
-      transition: transform 0.2s ease-in-out;
-    }
-
-    .logo-img:hover {
-      transform: scale(1.05);
-    }
-
-    .menu {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      margin: 0;
-      padding: 0;
-      align-items: center;
-      height: 64px;
-    }
-
-    .menu > li {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      position: relative;
-    }
-
-    .menu li a,
-    .advice-link {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1rem;
-      padding: 0 12px;
-      box-sizing: border-box;
-      line-height: 64px;
-      transition: color 0.3s;
-    }
-
-    .menu li a:hover,
-    .advice-link:hover {
-      color: #a855f7;
-    }
-
-    .menu li a:hover::after,
-    .advice-link:hover::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 2px;
-      background-color: #a855f7;
-    }
-
-    .toggle-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-
-    .advice-dropdown {
-      position: relative;
-      display: flex;
-      align-items: center;
-      height: 100%;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: #0b0b1a;
-      color: #fff;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      border-radius: 4px;
-      padding: 10px 0;
-      z-index: 1000;
-    }
-
-    .dropdown-item {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 20px;
-      display: block;
-      transition: background-color 0.3s;
-      text-align: left;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .dropdown-item:hover {
-      background-color: #a855f7;
-      color: #fff;
-    }
-
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 52px;
-      height: 28px;
-    }
-
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      background-color: #d1d1d1;
-      border-radius: 34px;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      transition: background-color 0.4s;
-    }
-
-    .slider:before {
-      content: "☀️";
-      position: absolute;
-      height: 24px;
-      width: 24px;
-      left: 2px;
-      bottom: 2px;
-      background-color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      transition: transform 0.4s, content 0.4s;
-    }
-
-    input:checked + .slider {
-      background-color: #87b3ff;
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(24px);
-      content: "🌜";
-    }
-
-    .section {
-      padding: 60px 20px;
-      width: 100%;
-    }
-
-    .section-purple {
-      background-color: var(--light-purple);
-      color: #fff;
-    }
-
-    .dark-mode .section-purple {
-      background-color: var(--dark-purple);
-      color: #fff;
-    }
-
-    .section-white {
-      background-color: var(--light-white);
-      color: #111;
-    }
-
-    .dark-mode .section-white {
-      background-color: var(--dark-white);
-      color: #f1f1f1;
-    }
-
-    .section-inner {
-      max-width: 850px;
-      margin: 0 auto;
-      text-align: left;
-    }
-
-    a {
-      color: #a855f7;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <a href="/" class="logo">
-      <img src="3cebaa3d-b12b-4716-9b8b-5ed782aba4b6.png" alt="Crohn's Journal logo" class="logo-img" />
-    </a>
-    <nav>
-      <ul class="menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about.html">About Me</a></li>
-        <li class="advice-dropdown">
-          <a href="#" class="advice-link" onclick="toggleAdviceDropdown(event)">Advice <span class="advice-caret">▼</span></a>
-          <ul class="dropdown-menu" id="advice-dropdown-menu">
-            <li><a href="/food.html" class="dropdown-item">Food</a></li>
-            <li><a href="/school.html" class="dropdown-item">School</a></li>
-          </ul>
-        </li>
-        <li><a href="/blog.html">Blog</a></li>
-        <li><a href="/contact.html">Contact Me</a></li>
-        <li>
-          <button class="toggle-btn" aria-label="Toggle theme">
-            <label class="toggle-switch">
-              <input type="checkbox" id="theme-toggle" />
-              <span class="slider"></span>
-            </label>
-          </button>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-  <div class="section section-purple">
-    <div class="section-inner">
-      <h1>FOOD</h1>
-      <h3>INITIAL PHASES</h3>
-      <p>Within the first few months, I continued my regular diet while taking medication. However, my family quickly discerned that I was lactose intolerant, so I stopped consuming dairy foods. From this, I would suggest weaning off foods that bother you. Cold cuts work for some (not for me, haha), but I quickly go into withdrawal. I found that substituting ingredients can help a lot. Initially, I replaced milk with almond milk. Soon, I learned how to enjoy my favorite desserts by baking them instead of buying them.</p>
-      <p>Yet, my symptoms continued to worsen. I felt lost. I took numerous medications and was careful with my food, but nothing seemed to work. I found SCD (Specific Carbohydrate Diet) nearly two years after my diagnosis. A brief overview: SCD eliminates select carbohydrates from your diet, so you only eat food that is easy for your body to digest, preventing harmful bacteria from growing and reducing inflammation. I felt healthiest and gained significant weight while following it, but please consult your provider first because the diet may lead to malnutrition and unhealthy weight loss.</p>
-    </div>
-  </div>
-
-  <div class="section section-white">
-    <div class="section-inner">
-      <h3>SCD</h3>
-      <p>If you decide to start SCD or are following it, I've included a few resources I used.</p>
-
-      <p><strong>Resources:</strong></p>
-      <p>Breaking the Vicious Cycle by Elaine Gottschall is a beautiful book that details the logic and reasoning behind SCD. Link to the book: <a href="https://www.amazon.com/Breaking-Vicious-Cycle-Intestinal-Through/dp/0969276818">Amazon</a></p>
-
-      <p>This is a list of "illegal" and "legal" foods of SCD that I frequently referenced: <a href="https://breakingtheviciouscycle.info/legal%2Fillegal-list-pdf">Illegal/Legal List PDF</a></p>
-
-      <p>The website also contains useful general information about the diet and the crucial "intro diet."</p>
-
-      <ul>
-        <li><a href="https://www.scdrecipe.com/">SCD Recipe Site</a></li>
-        <li><a href="https://againstallgrain.com/category/recipes/scd-recipes/">Against All Grain Recipes</a></li>
-      </ul>
-
-      <p><strong>Thoughts:</strong></p>
-      <p>SCD greatly emphasizes home-cooked meals – meaning no preservatives and fast food. As someone who loves eating out, I found transitioning into this diet difficult. I still remember whining for Chick-fil-A on the first day. The introductory diet was most strenuous as you go on a primarily liquid diet to detox your digestive system (<a href="https://breakingtheviciouscycle.info/the-introductory-diet">introductory diet link</a>). I promise it gets better. After the initial diet, I was allowed to introduce the foods listed on the legal list slowly.</p>
-
-      <p>It's important not to rush through this diet as you need to figure out what ingredients your body can tolerate, and sometimes, it takes a while for a reaction to occur (at least it did for me). I was eager to rush through and had to re-visit the introductory diet several times to determine primarily which ingredient(s) was/were bothering me.</p>
-
-      <p>Keeping a food journal along the way helps a lot. I kept a daily journal on the food I ate and how I felt afterward so my parents and I could pinpoint what worked for me.</p>
-
-      <p>Despite the introductory phase, SCD has been going swimmingly for me. A fair warning: it does require a lot of tolerance. At first, seeing others eat my favorite foods was difficult, but I reminded myself of the pain that followed, and my cravings subsided. Sorry if that was a bit extreme, but it's important to stay resilient. Completely suppressing your cravings isn't healthy either; finding and creating alternate food helps a lot. I've listed a few of my favorite foods in the recipe section of this website.</p>
-
-      <p>Please feel free to contact me for more information or clarification.</p>
-    </div>
-  </div>
-
-  <script>
-    const toggle = document.getElementById("theme-toggle");
-    const darkModeKey = "darkMode";
-
-    if (localStorage.getItem(darkModeKey) === "true") {
-      document.body.classList.add("dark-mode");
-      toggle.checked = true;
-    }
-
-    toggle.addEventListener("change", () => {
-      document.body.classList.toggle("dark-mode");
-      localStorage.setItem(darkModeKey, toggle.checked);
-    });
-
-    function toggleAdviceDropdown(e) {
-      e.preventDefault();
-      const menu = document.getElementById("advice-dropdown-menu");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-
-    document.addEventListener("click", function (e) {
-      const menu = document.getElementById("advice-dropdown-menu");
-      if (!e.target.closest(".advice-dropdown")) {
-        menu && (menu.style.display = "none");
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food | Crohn's Journal</title>
+    <style>
+      :root {
+        --light-purple: #736bc7;
+        --light-white: #ffffff;
+        --dark-purple: #2f2b57;
+        --dark-white: #0d0d1a;
       }
-    });
-  </script>
-</body>
+
+      body {
+        margin: 0;
+        font-family: "Open Sans", sans-serif;
+        background-color: var(--light-white);
+        color: #111;
+        line-height: 1.6;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .dark-mode {
+        background-color: var(--dark-white);
+        color: #f2f2f2;
+      }
+
+      .header {
+        background-color: #0b0b1a;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "Poppins", sans-serif;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .logo-img {
+        height: 45px;
+        width: auto;
+        display: block;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .logo-img:hover {
+        transform: scale(1.05);
+      }
+
+      .menu {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+      }
+
+      .menu > li {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        position: relative;
+      }
+
+      .menu li a,
+      .advice-link {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 0 12px;
+        box-sizing: border-box;
+        line-height: 64px;
+        transition: color 0.3s;
+      }
+
+      .menu li a:hover,
+      .advice-link:hover {
+        color: #a855f7;
+      }
+
+      .menu li a:hover::after,
+      .advice-link:hover::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #a855f7;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .advice-dropdown {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0b0b1a;
+        color: #fff;
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        padding: 10px 0;
+        z-index: 1000;
+      }
+
+      .dropdown-item {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        display: block;
+        transition: background-color 0.3s;
+        text-align: left;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .dropdown-item:hover {
+        background-color: #a855f7;
+        color: #fff;
+      }
+
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 28px;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        background-color: #d1d1d1;
+        border-radius: 34px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: background-color 0.4s;
+      }
+
+      .slider:before {
+        content: "☀️";
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: transform 0.4s, content 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #87b3ff;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(24px);
+        content: "🌜";
+      }
+
+      .section {
+        padding: 60px 20px;
+        width: 100%;
+      }
+
+      .section-purple {
+        background-color: var(--light-purple);
+        color: #fff;
+      }
+
+      .dark-mode .section-purple {
+        background-color: var(--dark-purple);
+        color: #fff;
+      }
+
+      .section-white {
+        background-color: var(--light-white);
+        color: #111;
+      }
+
+      .dark-mode .section-white {
+        background-color: var(--dark-white);
+        color: #f1f1f1;
+      }
+
+      .section-inner {
+        max-width: 850px;
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      a {
+        color: #a855f7;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 768px) {
+        .dropdown-menu {
+          position: static;
+          box-shadow: none;
+          background: none;
+          padding-left: 12px;
+        }
+
+        .dropdown-item {
+          padding: 8px 0;
+          background-color: transparent;
+          color: #fff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="logo">
+        <img
+          src="3cebaa3d-b12b-4716-9b8b-5ed782aba4b6.png"
+          alt="Crohn's Journal logo"
+          class="logo-img"
+        />
+      </a>
+      <nav>
+        <ul class="menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About Me</a></li>
+          <li class="advice-dropdown">
+            <a
+              href="#"
+              class="advice-link"
+              onclick="toggleAdviceDropdown(event)"
+              >Advice <span class="advice-caret">▼</span></a
+            >
+            <ul class="dropdown-menu" id="advice-dropdown-menu">
+              <li><a href="/food.html" class="dropdown-item">Food</a></li>
+              <li><a href="/school.html" class="dropdown-item">School</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/contact.html">Contact Me</a></li>
+          <li>
+            <button class="toggle-btn" aria-label="Toggle theme">
+              <label class="toggle-switch">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="slider"></span>
+              </label>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="section section-purple">
+      <div class="section-inner">
+        <h1>FOOD</h1>
+        <h3>INITIAL PHASES</h3>
+        <p>
+          Within the first few months, I continued my regular diet while taking
+          medication. However, my family quickly discerned that I was lactose
+          intolerant, so I stopped consuming dairy foods. From this, I would
+          suggest weaning off foods that bother you. Cold cuts work for some
+          (not for me, haha), but I quickly go into withdrawal. I found that
+          substituting ingredients can help a lot. Initially, I replaced milk
+          with almond milk. Soon, I learned how to enjoy my favorite desserts by
+          baking them instead of buying them.
+        </p>
+        <p>
+          Yet, my symptoms continued to worsen. I felt lost. I took numerous
+          medications and was careful with my food, but nothing seemed to work.
+          I found SCD (Specific Carbohydrate Diet) nearly two years after my
+          diagnosis. A brief overview: SCD eliminates select carbohydrates from
+          your diet, so you only eat food that is easy for your body to digest,
+          preventing harmful bacteria from growing and reducing inflammation. I
+          felt healthiest and gained significant weight while following it, but
+          please consult your provider first because the diet may lead to
+          malnutrition and unhealthy weight loss.
+        </p>
+      </div>
+    </div>
+
+    <div class="section section-white">
+      <div class="section-inner">
+        <h3>SCD</h3>
+        <p>
+          If you decide to start SCD or are following it, I've included a few
+          resources I used.
+        </p>
+
+        <p><strong>Resources:</strong></p>
+        <p>
+          Breaking the Vicious Cycle by Elaine Gottschall is a beautiful book
+          that details the logic and reasoning behind SCD. Link to the book:
+          <a
+            href="https://www.amazon.com/Breaking-Vicious-Cycle-Intestinal-Through/dp/0969276818"
+            >Amazon</a
+          >
+        </p>
+
+        <p>
+          This is a list of "illegal" and "legal" foods of SCD that I frequently
+          referenced:
+          <a
+            href="https://breakingtheviciouscycle.info/legal%2Fillegal-list-pdf"
+            >Illegal/Legal List PDF</a
+          >
+        </p>
+
+        <p>
+          The website also contains useful general information about the diet
+          and the crucial "intro diet."
+        </p>
+
+        <ul>
+          <li><a href="https://www.scdrecipe.com/">SCD Recipe Site</a></li>
+          <li>
+            <a href="https://againstallgrain.com/category/recipes/scd-recipes/"
+              >Against All Grain Recipes</a
+            >
+          </li>
+        </ul>
+
+        <p><strong>Thoughts:</strong></p>
+        <p>
+          SCD greatly emphasizes home-cooked meals – meaning no preservatives
+          and fast food. As someone who loves eating out, I found transitioning
+          into this diet difficult. I still remember whining for Chick-fil-A on
+          the first day. The introductory diet was most strenuous as you go on a
+          primarily liquid diet to detox your digestive system (<a
+            href="https://breakingtheviciouscycle.info/the-introductory-diet"
+            >introductory diet link</a
+          >). I promise it gets better. After the initial diet, I was allowed to
+          introduce the foods listed on the legal list slowly.
+        </p>
+
+        <p>
+          It's important not to rush through this diet as you need to figure out
+          what ingredients your body can tolerate, and sometimes, it takes a
+          while for a reaction to occur (at least it did for me). I was eager to
+          rush through and had to re-visit the introductory diet several times
+          to determine primarily which ingredient(s) was/were bothering me.
+        </p>
+
+        <p>
+          Keeping a food journal along the way helps a lot. I kept a daily
+          journal on the food I ate and how I felt afterward so my parents and I
+          could pinpoint what worked for me.
+        </p>
+
+        <p>
+          Despite the introductory phase, SCD has been going swimmingly for me.
+          A fair warning: it does require a lot of tolerance. At first, seeing
+          others eat my favorite foods was difficult, but I reminded myself of
+          the pain that followed, and my cravings subsided. Sorry if that was a
+          bit extreme, but it's important to stay resilient. Completely
+          suppressing your cravings isn't healthy either; finding and creating
+          alternate food helps a lot. I've listed a few of my favorite foods in
+          the recipe section of this website.
+        </p>
+
+        <p>
+          Please feel free to contact me for more information or clarification.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const toggle = document.getElementById("theme-toggle");
+      const darkModeKey = "darkMode";
+
+      if (localStorage.getItem(darkModeKey) === "true") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+      }
+
+      toggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem(darkModeKey, toggle.checked);
+      });
+
+      function toggleAdviceDropdown(e) {
+        e.preventDefault();
+        const menu = document.getElementById("advice-dropdown-menu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+      }
+
+      document.addEventListener("click", function (e) {
+        const menu = document.getElementById("advice-dropdown-menu");
+        if (!e.target.closest(".advice-dropdown")) {
+          menu && (menu.style.display = "none");
+        }
+      });
+    </script>
+  </body>
 </html>

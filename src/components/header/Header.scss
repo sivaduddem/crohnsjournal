@@ -31,17 +31,18 @@
 .menu {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   margin: 0;
   padding: 0;
   align-items: center;
-  height: 64px;
+  height: auto;
 }
 
 .menu > li {
   display: flex;
   align-items: center;
-  height: 100%;
+  height: auto;
   position: relative;
 }
 
@@ -49,14 +50,12 @@
 .advice-link {
   display: flex;
   align-items: center;
-  height: 100%;
   color: #fff;
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
-  padding: 0 12px;
+  padding: 10px 12px;
   box-sizing: border-box;
-  line-height: 64px;
   transition: color 0.3s;
   position: relative;
 }
@@ -81,24 +80,21 @@
   background: none;
   border: none;
   cursor: pointer;
-  height: 100%;
   display: flex;
   align-items: center;
+  padding: 10px 0;
 }
 
 .advice-dropdown {
   position: relative;
   display: flex;
   align-items: center;
-  height: 100%;
 
   .advice-link {
-    padding: 0 12px;
+    padding: 10px 12px;
     background: none;
     border: none;
     font: inherit;
-    height: 100%;
-    line-height: 64px;
     color: #fff;
     text-decoration: none;
     font-weight: 500;
@@ -123,7 +119,7 @@
     border-radius: 4px;
     padding: 10px 0;
     z-index: 1000;
-    list-style: none; // ✅ Add this line
+    list-style: none;
 
     .dropdown-item {
       color: #fff;
@@ -142,5 +138,30 @@
       background-color: #a855f7;
       color: #fff;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .advice-dropdown .dropdown-menu {
+    position: static;
+    background: none;
+    box-shadow: none;
+    padding-left: 12px;
+  }
+
+  .dropdown-item {
+    padding: 8px 0;
+    background-color: transparent;
+    color: #fff;
+  }
+
+  .toggle-btn {
+    align-self: flex-end;
+    margin-top: 10px;
   }
 }
